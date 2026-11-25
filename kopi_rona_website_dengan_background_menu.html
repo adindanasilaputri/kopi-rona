@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f3dfc3" />
+  <meta name="description" content="Kopi Rona — teman jeda, cerita, dan harimu. Temukan kopi favoritmu dengan suasana hangat dan rasa yang berkesan." />
+  <title>Kopi Rona — Teman Jeda & Cerita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navajo: #f3dfc3;
+      --cream: #fffdf8;
+      --gentle: #f8f1e6;
+      --antique: #faebd7;
+      --espresso: #3b2a21;
+      --coffee: #73513b;
+      --muted: #8b796a;
+      --sage: #9ba58a;
+      --line: rgba(91, 66, 48, .13);
+      --shadow: 0 18px 55px rgba(81, 57, 37, .10);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--espresso);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+    }
+    body.no-scroll { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--coffee); font-size: .75rem; font-weight: 700;
+      letter-spacing: .17em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--coffee); }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.12; letter-spacing: -.035em; margin: 14px 0 14px;
+    }
+    .section-copy { color: var(--muted); max-width: 540px; margin: 0; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      border: 0; border-radius: 999px; padding: 14px 22px; font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--espresso); color: #fffaf2; box-shadow: 0 10px 24px rgba(59,42,33,.17); }
+    .btn-primary:hover { background: #543b2c; box-shadow: 0 14px 28px rgba(59,42,33,.22); }
+    .btn-light { background: rgba(255,253,248,.78); color: var(--espresso); border: 1px solid var(--line); }
+    .btn-light:hover { background: white; }
+    .icon { width: 19px; height: 19px; display: inline-block; flex: none; }
+
+    /* Navigation */
+    .site-header {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+      padding: 22px 0;
+    }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.04em; font-size: 1.25rem; }
+    .brand-mark {
+      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+      color: var(--cream); background: var(--espresso);
+    }
+    .brand small { display: block; color: var(--coffee); font-size: .57rem; letter-spacing: .18em; font-weight: 600; margin-top: -3px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; color: #665345; font-size: .9rem; font-weight: 600; }
+    .nav-links a { transition: color .2s; }
+    .nav-links a:hover { color: #a46e42; }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .cart-button {
+      border: 1px solid var(--line); background: rgba(255,253,248,.75); color: var(--espresso);
+      padding: 10px 15px; border-radius: 999px; display: inline-flex; align-items: center; gap: 9px;
+      font-weight: 700; font-size: .88rem;
+    }
+    .cart-count { display: grid; place-items: center; min-width: 21px; height: 21px; border-radius: 50%; background: var(--espresso); color: white; font-size: .7rem; }
+    .menu-toggle { display: none; border: 0; background: transparent; color: var(--espresso); padding: 7px; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; min-height: 710px; padding: 152px 0 80px; background: var(--navajo); }
+    .hero::before {
+      content: ''; position: absolute; width: 590px; height: 590px; border: 1px solid rgba(115,81,59,.11);
+      border-radius: 50%; top: -300px; right: -80px; box-shadow: 0 0 0 48px rgba(255,253,248,.11), 0 0 0 96px rgba(255,253,248,.08);
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 54px; }
+    .hero-copy { padding: 28px 0 42px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 6.2vw, 5.8rem); line-height: .99; letter-spacing: -.055em; margin: 22px 0; max-width: 610px; }
+    .hero h1 em { color: #956b4c; font-weight: 500; }
+    .hero-copy > p { color: #725c4b; font-size: 1.07rem; max-width: 470px; margin: 0 0 30px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { display: flex; align-items: center; gap: 13px; margin-top: 42px; color: #786452; font-size: .83rem; }
+    .avatar-stack { display: flex; padding-left: 5px; }
+    .avatar-stack span { width: 29px; height: 29px; border-radius: 50%; border: 2px solid var(--navajo); margin-left: -6px; background: linear-gradient(140deg,#b77f55,#f4d7b4); }
+    .avatar-stack span:nth-child(2) { background: linear-gradient(140deg,#6e8974,#d3c6a5); }
+    .avatar-stack span:nth-child(3) { background: linear-gradient(140deg,#d4a16d,#73513b); }
+    .hero-visual { min-height: 490px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .hero-photo {
+      width: min(100%, 470px); height: 500px; border-radius: 48% 48% 24px 24px;
+      object-fit: cover; box-shadow: 0 30px 60px rgba(75,49,29,.2); position: relative; z-index: 1;
+    }
+    .photo-tag {
+      position: absolute; z-index: 2; left: -10px; bottom: 45px; background: var(--cream); border-radius: 18px;
+      padding: 15px 19px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 12px;
+    }
+    .tag-icon { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: var(--gentle); font-size: 1.25rem; }
+    .photo-tag strong { display: block; font-size: .88rem; }
+    .photo-tag small { color: var(--muted); font-size: .73rem; }
+    .round-stamp {
+      position: absolute; z-index: 2; top: 28px; right: -7px; width: 104px; height: 104px; border-radius: 50%;
+      background: var(--sage); color: white; display: grid; place-items: center; text-align: center;
+      font-family: 'Playfair Display', serif; font-size: .95rem; line-height: 1.15; transform: rotate(10deg);
+      outline: 1px dashed rgba(255,255,255,.75); outline-offset: -8px;
+    }
+
+    /* Values strip */
+    .values { background: var(--cream); padding: 28px 0; border-bottom: 1px solid var(--line); }
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .value-item { display: flex; align-items: center; justify-content: center; gap: 13px; color: #6d5949; font-size: .9rem; font-weight: 600; }
+    .value-item span:first-child { font-size: 1.35rem; }
+
+    /* Menu */
+    .menu-section { padding: 105px 0 112px; background: var(--cream); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 36px; }
+    .section-head .section-copy { max-width: 390px; padding-bottom: 5px; }
+    .filters { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 28px; }
+    .filter-btn { border: 1px solid var(--line); border-radius: 999px; background: transparent; padding: 9px 17px; color: #776354; font-size: .83rem; font-weight: 700; transition: .2s; }
+    .filter-btn.active, .filter-btn:hover { background: var(--espresso); color: var(--cream); border-color: var(--espresso); }
+    .menu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .product-card { background: var(--gentle); border: 1px solid rgba(91,66,48,.07); border-radius: 21px; overflow: hidden; transition: transform .25s, box-shadow .25s; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .product-image-wrap { height: 225px; position: relative; overflow: hidden; background: var(--antique); }
+    .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform .55s; }
+    .product-card:hover .product-image { transform: scale(1.045); }
+    .product-label { position: absolute; top: 14px; left: 14px; border-radius: 999px; padding: 6px 11px; background: rgba(255,253,248,.9); color: var(--coffee); font-size: .68rem; font-weight: 700; letter-spacing: .04em; }
+    .product-info { padding: 18px 19px 19px; }
+    .product-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .product-info h3 { font-family: 'Playfair Display', serif; font-size: 1.28rem; line-height: 1.2; margin: 0 0 7px; }
+    .product-price { color: #916643; font-size: .94rem; font-weight: 700; white-space: nowrap; }
+    .product-info p { color: var(--muted); font-size: .82rem; margin: 0 0 17px; min-height: 43px; }
+    .add-btn { width: 100%; border: 1px solid rgba(59,42,33,.22); background: transparent; color: var(--espresso); border-radius: 12px; padding: 10px 13px; font-size: .83rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; transition: .2s; }
+    .add-btn:hover { background: var(--espresso); color: white; border-color: var(--espresso); }
+    .menu-footnote { color: #998779; font-size: .72rem; margin-top: 16px; }
+
+    /* Story */
+    .story-section { background: var(--antique); padding: 100px 0; overflow: hidden; }
+    .story-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 75px; align-items: center; }
+    .story-image-wrap { position: relative; padding: 0 24px 24px 0; }
+    .story-image { width: 100%; height: 470px; object-fit: cover; border-radius: 20px; display: block; box-shadow: var(--shadow); }
+    .story-image-wrap::after { content: ''; position: absolute; z-index: 0; right: 0; bottom: 0; width: 65%; height: 70%; border: 1px solid #c7aa8d; border-radius: 20px; }
+    .story-image { position: relative; z-index: 1; }
+    .story-copy { position: relative; z-index: 1; }
+    .story-copy .section-title { max-width: 500px; }
+    .story-copy p { color: #796655; margin: 0 0 17px; }
+    .story-signature { display: flex; align-items: center; gap: 13px; margin-top: 28px; }
+    .signature-mark { width: 45px; height: 45px; border-radius: 50%; display: grid; place-items: center; background: var(--espresso); color: white; font-family: 'Playfair Display',serif; }
+    .story-signature strong { display: block; font-size: .86rem; }
+    .story-signature small { color: var(--muted); font-size: .75rem; }
+
+    /* Visit */
+    .visit-section { padding: 105px 0; background: var(--cream); }
+    .visit-card { display: grid; grid-template-columns: 1fr .9fr; overflow: hidden; border-radius: 28px; background: var(--gentle); box-shadow: var(--shadow); }
+    .visit-content { padding: 52px; }
+    .visit-content .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+    .visit-details { display: grid; gap: 16px; margin: 27px 0 30px; }
+    .visit-row { display: flex; align-items: flex-start; gap: 13px; color: #6f5d4e; font-size: .9rem; }
+    .visit-row .detail-icon { width: 36px; height: 36px; background: var(--antique); border-radius: 12px; display: grid; place-items: center; flex: none; }
+    .visit-row strong { display: block; color: var(--espresso); font-size: .84rem; margin-bottom: 2px; }
+    .visit-map { min-height: 440px; position: relative; background: #d7d7c4; overflow: hidden; }
+    .map-pattern { position: absolute; inset: 0; opacity: .72; background-color: #dce0d0; background-image: linear-gradient(32deg, transparent 46%, rgba(255,255,255,.72) 47%, rgba(255,255,255,.72) 49%, transparent 50%), linear-gradient(112deg, transparent 42%, rgba(255,255,255,.68) 43%, rgba(255,255,255,.68) 45%, transparent 46%), linear-gradient(0deg, transparent 48%, rgba(255,255,255,.5) 49%, rgba(255,255,255,.5) 51%, transparent 52%); background-size: 150px 130px, 190px 170px, 100px 100px; }
+    .map-water { position: absolute; width: 125%; height: 80px; background: #b9c8bb; left: -10%; top: 55%; transform: rotate(-22deg); border-radius: 50%; opacity: .8; }
+    .map-pin { position: absolute; top: 45%; left: 51%; transform: translate(-50%,-50%); width: 62px; height: 62px; background: var(--espresso); color: white; display: grid; place-items: center; border-radius: 50% 50% 50% 8px; rotate: -45deg; box-shadow: 0 9px 22px rgba(59,42,33,.28); }
+    .map-pin svg { rotate: 45deg; }
+    .map-caption { position: absolute; left: 50%; top: calc(45% + 47px); transform: translateX(-50%); padding: 9px 14px; background: var(--cream); color: var(--espresso); white-space: nowrap; border-radius: 10px; box-shadow: var(--shadow); font-size: .78rem; font-weight: 700; }
+    .map-note { position: absolute; bottom: 20px; right: 20px; background: rgba(255,253,248,.85); color: #786a5c; border-radius: 9px; padding: 7px 10px; font-size: .68rem; }
+
+    /* Footer */
+    footer { background: var(--espresso); color: var(--cream); padding: 55px 0 25px; }
+    .footer-main { display: flex; align-items: flex-start; justify-content: space-between; gap: 35px; padding-bottom: 42px; }
+    .footer-brand { max-width: 320px; }
+    .footer-brand .brand { color: var(--cream); }
+    .footer-brand .brand-mark { background: var(--navajo); color: var(--espresso); }
+    .footer-brand p { color: #c4b2a2; font-size: .84rem; margin: 16px 0 0; }
+    .footer-links { display: flex; gap: 55px; }
+    .footer-col strong { display: block; margin-bottom: 13px; font-size: .83rem; }
+    .footer-col a, .footer-col span { display: block; color: #c4b2a2; font-size: .8rem; margin: 8px 0; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom { padding-top: 20px; border-top: 1px solid rgba(255,253,248,.13); color: #a99685; display: flex; justify-content: space-between; gap: 20px; font-size: .73rem; }
+
+    /* Cart drawer */
+    .overlay { position: fixed; inset: 0; background: rgba(36,25,19,.42); z-index: 40; opacity: 0; visibility: hidden; transition: .25s; }
+    .overlay.open { opacity: 1; visibility: visible; }
+    .cart-drawer { position: fixed; z-index: 41; top: 0; right: 0; width: min(440px, 100%); height: 100dvh; background: var(--cream); transform: translateX(100%); transition: transform .3s ease; display: flex; flex-direction: column; box-shadow: -15px 0 55px rgba(40,25,14,.15); }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header { display: flex; align-items: center; justify-content: space-between; padding: 24px; border-bottom: 1px solid var(--line); }
+    .cart-header h2 { font: 600 1.6rem 'Playfair Display',serif; margin: 0; }
+    .close-cart { width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--espresso); display: grid; place-items: center; }
+    .cart-items { padding: 18px 24px; overflow-y: auto; flex: 1; }
+    .empty-cart { text-align: center; color: var(--muted); padding: 65px 12px; }
+    .empty-cart .empty-icon { font-size: 2.4rem; margin-bottom: 10px; }
+    .cart-item { display: grid; grid-template-columns: 68px 1fr auto; gap: 13px; padding: 13px 0; border-bottom: 1px solid var(--line); align-items: center; }
+    .cart-item img { width: 68px; height: 68px; object-fit: cover; border-radius: 13px; }
+    .cart-item strong { display: block; font-size: .87rem; }
+    .cart-item small { color: var(--muted); font-size: .76rem; }
+    .quantity { display: flex; align-items: center; gap: 9px; margin-top: 7px; }
+    .quantity button { width: 23px; height: 23px; border: 1px solid var(--line); background: white; border-radius: 50%; color: var(--espresso); line-height: 1; }
+    .quantity span { font-size: .78rem; font-weight: 700; }
+    .remove-item { border: 0; background: transparent; color: #a28c7a; padding: 4px; }
+    .cart-footer { padding: 20px 24px 26px; border-top: 1px solid var(--line); background: var(--gentle); }
+    .subtotal { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 16px; }
+    .cart-footer .btn { width: 100%; }
+    .cart-hint { text-align: center; color: var(--muted); font-size: .7rem; margin: 10px 0 0; }
+    .toast { position: fixed; z-index: 60; bottom: 25px; left: 50%; transform: translate(-50%, 18px); opacity: 0; pointer-events: none; background: var(--espresso); color: white; padding: 12px 18px; border-radius: 999px; font-size: .82rem; box-shadow: var(--shadow); transition: .25s; white-space: nowrap; }
+    .toast.show { opacity: 1; transform: translate(-50%,0); }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 19px; }
+      .hero-grid { gap: 25px; }
+      .hero-visual { min-height: 430px; }
+      .hero-photo { height: 430px; }
+      .story-grid { gap: 40px; }
+      .visit-content { padding: 38px; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 34px, 540px); }
+      .site-header { padding: 15px 0; }
+      .nav-wrap { gap: 10px; }
+      .nav-links { display: none; position: absolute; top: 70px; left: 17px; right: 17px; padding: 18px; border-radius: 18px; background: var(--cream); box-shadow: var(--shadow); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 11px 7px; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .cart-button { padding: 9px 11px; }
+      .cart-button .cart-text { display: none; }
+      .hero { min-height: 0; padding: 112px 0 56px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 10px; }
+      .hero-copy { padding: 16px 0 0; }
+      .hero h1 { font-size: clamp(3.25rem, 15vw, 4.8rem); max-width: 500px; margin: 17px 0; }
+      .hero-copy > p { font-size: .98rem; }
+      .hero-note { margin-top: 25px; }
+      .hero-visual { min-height: 355px; margin-top: 12px; }
+      .hero-photo { height: 365px; width: min(86%, 390px); }
+      .photo-tag { left: 0; bottom: 25px; padding: 11px 13px; }
+      .round-stamp { right: 0; top: 8px; width: 82px; height: 82px; font-size: .78rem; }
+      .values { padding: 20px 0; }
+      .values-grid { gap: 13px; }
+      .value-item { flex-direction: column; text-align: center; gap: 5px; font-size: .69rem; line-height: 1.3; }
+      .value-item span:first-child { font-size: 1.2rem; }
+      .menu-section, .visit-section { padding: 72px 0; }
+      .section-head { display: block; margin-bottom: 25px; }
+      .section-head .section-copy { margin-top: 12px; }
+      .menu-grid { grid-template-columns: repeat(2,1fr); gap: 13px; }
+      .product-image-wrap { height: 155px; }
+      .product-info { padding: 13px; }
+      .product-info h3 { font-size: 1.05rem; }
+      .product-price { font-size: .78rem; }
+      .product-info p { font-size: .73rem; min-height: 57px; }
+      .product-label { top: 9px; left: 9px; font-size: .6rem; }
+      .add-btn { font-size: .73rem; padding: 9px 7px; }
+      .story-section { padding: 72px 0; }
+      .story-grid { grid-template-columns: 1fr; gap: 35px; }
+      .story-image { height: 340px; }
+      .visit-card { grid-template-columns: 1fr; }
+      .visit-content { padding: 30px 24px; }
+      .visit-map { min-height: 300px; }
+      .footer-main { flex-direction: column; }
+      .footer-links { gap: 35px; width: 100%; }
+      .footer-bottom { flex-direction: column; gap: 5px; }
+    }
+    @media (max-width: 390px) {
+      .brand { font-size: 1.08rem; }
+      .brand-mark { width: 34px; height: 34px; }
+      .menu-grid { gap: 10px; }
+      .product-image-wrap { height: 135px; }
+      .product-info h3 { font-size: .98rem; }
+      .product-info p { min-height: 68px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+
+
+    /* Full-bleed photo backgrounds for every menu item */
+    .product-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 390px;
+      background: #4a3428;
+      border: 1px solid rgba(91,66,48,.12);
+      isolation: isolate;
+    }
+    .product-image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      height: 100%;
+      background: var(--antique);
+    }
+    .product-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .65s ease;
+    }
+    .product-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(37, 25, 18, .04) 5%,
+        rgba(37, 25, 18, .12) 34%,
+        rgba(37, 25, 18, .88) 100%
+      );
+    }
+    .product-label {
+      z-index: 2;
+      background: rgba(255,253,248,.93);
+      color: var(--espresso);
+      backdrop-filter: blur(8px);
+    }
+    .product-info {
+      position: relative;
+      z-index: 1;
+      padding: 22px 20px 20px;
+      color: #fffaf2;
+      background: linear-gradient(180deg, rgba(46,31,22,0), rgba(46,31,22,.12));
+    }
+    .product-info h3 { color: #fffaf2; }
+    .product-price { color: var(--navajo); }
+    .product-info p {
+      color: rgba(255,250,242,.86);
+      min-height: 0;
+      margin-bottom: 17px;
+    }
+    .add-btn {
+      color: var(--espresso);
+      background: rgba(255,253,248,.94);
+      border-color: rgba(255,253,248,.94);
+      backdrop-filter: blur(8px);
+    }
+    .add-btn:hover {
+      color: var(--cream);
+      background: var(--espresso);
+      border-color: var(--espresso);
+    }
+    @media (max-width: 700px) {
+      .product-card { min-height: 350px; }
+      .product-info { padding: 16px 13px 14px; }
+      .product-info p { min-height: 0; font-size: .73rem; }
+    }
+    @media (max-width: 390px) {
+      .product-card { min-height: 330px; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#beranda" aria-label="Kopi Rona, beranda">
+        <span class="brand-mark" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 9h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V9Z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 4c0 1 1 1 1 2M12 3c0 1 1 1 1 2"/></svg>
+        </span>
+        <span>Kopi Rona<small>COFFEE & SLOW DAYS</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
+        <a href="#beranda">Beranda</a><a href="#menu">Menu</a><a href="#cerita">Cerita Kami</a><a href="#kunjungi">Lokasi</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="cart-button" id="openCart" aria-label="Buka keranjang">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L22 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+          <span class="cart-text">Keranjang</span><span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Buka navigasi" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="beranda">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">A little pause, a lot of joy</span>
+          <h1>Secangkir kopi,<br><em>sejuta cerita.</em></h1>
+          <p>Temukan rasa nyaman di setiap tegukan. Diracik dengan hati, disajikan untuk menemani cerita kecil dalam harimu.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#menu">Jelajahi Menu <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-light" href="#cerita">Kenali Kopi Rona</a>
+          </div>
+          <div class="hero-note">
+            <div class="avatar-stack" aria-hidden="true"><span></span><span></span><span></span></div>
+            <span>Diracik hangat, dinikmati perlahan.</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1000&q=85" alt="Barista sedang meracik kopi di kedai" />
+          <div class="photo-tag"><span class="tag-icon">☕</span><span><strong>Made with warmth</strong><small>Freshly brewed every day</small></span></div>
+          <div class="round-stamp">Good coffee<br>good mood<br>♡</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="values" aria-label="Keunggulan Kopi Rona">
+      <div class="container values-grid">
+        <div class="value-item"><span>🌱</span><span>Biji kopi pilihan</span></div>
+        <div class="value-item"><span>♡</span><span>Dibuat dengan hati</span></div>
+        <div class="value-item"><span>☀️</span><span>Teman setiap suasana</span></div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">Our favorite sips</span><h2 class="section-title">Temukan <em>favoritmu.</em></h2></div>
+          <p class="section-copy">Dari kopi klasik sampai racikan creamy yang jadi mood booster. Ada rasa untuk setiap versi harimu.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter menu">
+          <button class="filter-btn active" data-filter="all">Semua</button>
+          <button class="filter-btn" data-filter="coffee">Coffee</button>
+          <button class="filter-btn" data-filter="non-coffee">Non Coffee</button>
+          <button class="filter-btn" data-filter="snack">Snack</button>
+        </div>
+        <div class="menu-grid" id="menuGrid">
+          <article class="product-card" data-category="coffee" data-id="aren-latte" data-name="Aren Latte" data-price="28000" data-image="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=700&q=80">
+            <div class="product-image-wrap"><img class="product-image" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=700&q=80" alt="Es kopi susu gula aren" loading="lazy"><span class="product-label">BEST SELLER</span></div>
+            <div class="product-info"><div class="product-top"><h3>Aren Latte</h3><span class="product-price">Rp28K</span></div><p>Espresso, susu creamy, dan manis alami gula aren.</p><button class="add-btn" data-add="aren-latte">＋ Tambah ke keranjang</button></div>
+          </article>
+          <article class="product-card" data-category="coffee" data-id="butterscotch" data-name="Butterscotch Sea Salt" data-price="32000" data-image="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=700&q=80">
+            <div class="product-image-wrap"><img class="product-image" src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=700&q=80" alt="Kopi susu dingin dengan lapisan creamy" loading="lazy"><span class="product-label">FAVORIT</span></div>
+            <div class="product-info"><div class="product-top"><h3>Butterscotch Sea Salt</h3><span class="product-price">Rp32K</span></div><p>Perpaduan butterscotch lembut dengan sentuhan sea salt.</p><button class="add-btn" data-add="butterscotch">＋ Tambah ke keranjang</button></div>
+          </article>
+          <article class="product-card" data-category="coffee" data-id="cafe-latte" data-name="Cafe Latte" data-price="27000" data-image="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=700&q=80">
+            <div class="product-image-wrap"><img class="product-image" src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=700&q=80" alt="Cafe latte dengan latte art" loading="lazy"></div>
+            <div class="product-info"><div class="product-top"><h3>Cafe Latte</h3><span class="product-price">Rp27K</span></div><p>Espresso seimbang dengan steamed milk yang halus.</p><button class="add-btn" data-add="cafe-latte">＋ Tambah ke keranjang</button></div>
+          </article>
+          <article class="product-card" data-category="non-coffee" data-id="matcha-cloud" data-name="Matcha Cloud" data-price="30000" data-image="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=700&q=80">
+            <div class="product-image-wrap"><img class="product-image" src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=700&q=80" alt="Matcha latte dingin" loading="lazy"><span class="product-label">NON COFFEE</span></div>
+            <div class="product-info"><div class="product-top"><h3>Matcha Cloud</h3><span class="product-price">Rp30K</span></div><p>Matcha pilihan dengan susu lembut dan rasa earthy.</p><button class="add-btn" data-add="matcha-cloud">＋ Tambah ke keranjang</button></div>
+          </article>
+          <article class="product-card" data-category="non-coffee" data-id="strawberry-milk" data-name="Strawberry Milk" data-price="29000" data-image="https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=700&q=80">
+            <div class="product-image-wrap"><img class="product-image" src="https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=700&q=80" alt="Minuman susu stroberi segar" loading="lazy"></div>
+            <div class="product-info"><div class="product-top"><h3>Strawberry Milk</h3><span class="product-price">Rp29K</span></div><p>Susu segar berpadu stroberi manis dan sedikit tangy.</p><button class="add-btn" data-add="strawberry-milk">＋ Tambah ke keranjang</button></div>
+          </article>
+          <article class="product-card" data-category="snack" data-id="butter-croissant" data-name="Butter Croissant" data-price="24000" data-image="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=700&q=80">
+            <div class="product-image-wrap"><img class="product-image" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=700&q=80" alt="Croissant butter berlapis renyah" loading="lazy"><span class="product-label">FRESH BAKED</span></div>
+            <div class="product-info"><div class="product-top"><h3>Butter Croissant</h3><span class="product-price">Rp24K</span></div><p>Pastry buttery dengan bagian luar renyah dan flaky.</p><button class="add-btn" data-add="butter-croissant">＋ Tambah ke keranjang</button></div>
+          </article>
+        </div>
+        <p class="menu-footnote">* Harga dan daftar menu pada website ini merupakan contoh dan dapat disesuaikan.</p>
+      </div>
+    </section>
+
+    <section class="story-section" id="cerita">
+      <div class="container story-grid">
+        <div class="story-image-wrap"><img class="story-image" src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1000&q=85" alt="Suasana hangat interior kedai kopi" loading="lazy"></div>
+        <div class="story-copy">
+          <span class="eyebrow">A warm place to land</span>
+          <h2 class="section-title">Bukan sekadar kopi, tapi ruang untuk <em>berhenti sejenak.</em></h2>
+          <p>Kopi Rona lahir dari hal sederhana: percaya bahwa hari yang sibuk layak punya jeda. Kami ingin setiap cangkir membawa rasa hangat, setiap kunjungan terasa akrab, dan setiap cerita punya tempat untuk singgah.</p>
+          <p>Datang untuk kopi favoritmu, tinggal sedikit lebih lama untuk suasananya.</p>
+          <div class="story-signature"><span class="signature-mark">KR</span><span><strong>Dengan hangat, Kopi Rona</strong><small>Good coffee, gentler days.</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="visit-section" id="kunjungi">
+      <div class="container">
+        <div class="visit-card">
+          <div class="visit-content">
+            <span class="eyebrow">Come say hello</span>
+            <h2 class="section-title">Jeda kecilmu <em>ada di sini.</em></h2>
+            <p class="section-copy">Mampir untuk secangkir kopi, obrolan santai, atau sekadar menikmati waktu sendiri.</p>
+            <div class="visit-details">
+              <div class="visit-row"><span class="detail-icon">⌖</span><span><strong>Alamat kedai</strong>Tambahkan alamat kedai kamu di sini</span></div>
+              <div class="visit-row"><span class="detail-icon">◷</span><span><strong>Jam operasional</strong>Setiap hari · 09.00–22.00 WIB</span></div>
+              <div class="visit-row"><span class="detail-icon">☏</span><span><strong>Kontak</strong>Tambahkan nomor WhatsApp kedai</span></div>
+            </div>
+            <a class="btn btn-primary" href="mailto:halo@kopirona.example">Hubungi Kami <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="visit-map" aria-label="Ilustrasi peta lokasi kedai, lokasi belum diatur">
+            <div class="map-pattern"></div><div class="map-water"></div>
+            <div class="map-pin"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div class="map-caption">Kopi Rona — your cozy corner</div><div class="map-note">Ilustrasi lokasi · silakan sesuaikan</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#beranda"><span class="brand-mark">☕</span><span>Kopi Rona<small>COFFEE & SLOW DAYS</small></span></a>
+          <p>Secangkir kehangatan untuk menemani hari, cerita, dan hal-hal sederhana yang berarti.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><strong>Jelajahi</strong><a href="#menu">Menu Kami</a><a href="#cerita">Cerita Kami</a><a href="#kunjungi">Lokasi</a></div>
+          <div class="footer-col"><strong>Temukan Kami</strong><span>Instagram · @kopirona</span><span>hello@kopirona.example</span><span>Jakarta, Indonesia</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Kopi Rona. Dibuat dengan ♥ dan kopi.</span><span>Good coffee, gentler days.</span></div>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Keranjang belanja" aria-hidden="true">
+    <div class="cart-header"><h2>Keranjangmu</h2><button class="close-cart" id="closeCart" aria-label="Tutup keranjang">✕</button></div>
+    <div class="cart-items" id="cartItems"><div class="empty-cart"><div class="empty-icon">☕</div><strong>Belum ada pilihan, nih.</strong><p>Yuk, temukan teman ngopimu hari ini.</p></div></div>
+    <div class="cart-footer"><div class="subtotal"><span>Subtotal</span><span id="cartSubtotal">Rp0</span></div><button class="btn btn-primary" id="checkoutBtn">Salin ringkasan pesanan <span aria-hidden="true">↗</span></button><p class="cart-hint">Demo keranjang · hubungi kedai untuk menyelesaikan pesanan.</p></div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite">Ditambahkan ke keranjang ♡</div>
+
+  <script>
+    const cart = new Map();
+    const productCards = [...document.querySelectorAll('.product-card')];
+    const cartDrawer = document.getElementById('cartDrawer');
+    const overlay = document.getElementById('overlay');
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+    const cartSubtotal = document.getElementById('cartSubtotal');
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    const rupiah = value => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value).replace('IDR', 'Rp');
+    const products = new Map(productCards.map(card => [card.dataset.id, {
+      id: card.dataset.id, name: card.dataset.name, price: Number(card.dataset.price), image: card.dataset.image
+    }]));
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2100);
+    }
+    function addToCart(id) {
+      const item = cart.get(id) || { ...products.get(id), quantity: 0 };
+      item.quantity += 1;
+      cart.set(id, item);
+      renderCart();
+      showToast(`${item.name} ditambahkan ♡`);
+    }
+    function changeQuantity(id, delta) {
+      const item = cart.get(id);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) cart.delete(id);
+      else cart.set(id, item);
+      renderCart();
+    }
+    function removeItem(id) { cart.delete(id); renderCart(); }
+    function renderCart() {
+      const count = [...cart.values()].reduce((sum, item) => sum + item.quantity, 0);
+      const total = [...cart.values()].reduce((sum, item) => sum + item.price * item.quantity, 0);
+      cartCount.textContent = count;
+      cartSubtotal.textContent = rupiah(total);
+      if (!cart.size) {
+        cartItems.innerHTML = '<div class="empty-cart"><div class="empty-icon">☕</div><strong>Belum ada pilihan, nih.</strong><p>Yuk, temukan teman ngopimu hari ini.</p></div>';
+        return;
+      }
+      cartItems.innerHTML = [...cart.values()].map(item => `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.name}">
+          <div><strong>${item.name}</strong><small>${rupiah(item.price)} · ${rupiah(item.price * item.quantity)}</small>
+            <div class="quantity"><button data-qty="-1" data-id="${item.id}" aria-label="Kurangi ${item.name}">−</button><span>${item.quantity}</span><button data-qty="1" data-id="${item.id}" aria-label="Tambah ${item.name}">+</button></div>
+          </div>
+          <button class="remove-item" data-remove="${item.id}" aria-label="Hapus ${item.name}">✕</button>
+        </div>`).join('');
+    }
+    function openCart() {
+      cartDrawer.classList.add('open'); overlay.classList.add('open'); document.body.classList.add('no-scroll');
+      cartDrawer.setAttribute('aria-hidden', 'false'); document.getElementById('closeCart').focus();
+    }
+    function closeCart() {
+      cartDrawer.classList.remove('open'); overlay.classList.remove('open'); document.body.classList.remove('no-scroll');
+      cartDrawer.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelectorAll('[data-add]').forEach(button => button.addEventListener('click', () => addToCart(button.dataset.add)));
+    document.querySelectorAll('.filter-btn').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn === button));
+      const filter = button.dataset.filter;
+      productCards.forEach(card => card.hidden = filter !== 'all' && card.dataset.category !== filter);
+    }));
+    cartItems.addEventListener('click', event => {
+      const quantityButton = event.target.closest('[data-qty]');
+      const removeButton = event.target.closest('[data-remove]');
+      if (quantityButton) changeQuantity(quantityButton.dataset.id, Number(quantityButton.dataset.qty));
+      if (removeButton) removeItem(removeButton.dataset.remove);
+    });
+    document.getElementById('openCart').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeCart(); });
+    document.getElementById('checkoutBtn').addEventListener('click', async () => {
+      if (!cart.size) { showToast('Keranjangmu masih kosong ☕'); return; }
+      const lines = ['Pesanan Kopi Rona', ...[...cart.values()].map(item => `${item.quantity}x ${item.name} — ${rupiah(item.price * item.quantity)}`)];
+      const total = [...cart.values()].reduce((sum, item) => sum + item.price * item.quantity, 0);
+      lines.push(`Total: ${rupiah(total)}`);
+      try {
+        await navigator.clipboard.writeText(lines.join('\n'));
+        showToast('Ringkasan pesanan berhasil disalin ♡');
+      } catch (error) {
+        showToast('Browser belum mengizinkan salin otomatis.');
+      }
+    });
+    const menuToggle = document.getElementById('menuToggle');
+    menuToggle.addEventListener('click', () => {
+      const nav = document.getElementById('navLinks');
+      const isOpen = nav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.querySelectorAll('#navLinks a').forEach(link => link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
